@@ -7,6 +7,7 @@ use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use Noodlehaus\Config;
+use Cyptalt\Exchange\BaseExchange;
 use Cyptalt\Exception\CouldNotConnectException;
 
 /**

@@ -4,7 +4,7 @@ namespace Cyptalt\Exchange;
 
 use GuzzleHttp\Client;
 use Noodlehaus\Config;
-use Cyptalt\Exchange;
+use Cyptalt\Exchange\BitFlyerExchange;
 
 /**
  * BitFlyerExchangeTest Class

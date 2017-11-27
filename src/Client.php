@@ -4,6 +4,7 @@ namespace Cyptalt;
 
 use Noodlehaus\Config;
 use Pimple\Container;
+use Cyptalt\Exception\NotSetException;
 
 /**
  * Client Class
@@ -16,7 +17,7 @@ class Client
     private $conf;
 
     /** @var array $container Pimple config. */
-    private $container;
+    private $container = [];
 
     /** @var ExchangeInterface[] $exchanges Exchange config. */  
     private $exchanges = [];
@@ -34,12 +35,12 @@ class Client
         $this->conf = $conf->all();
         $container = new Container();
 
-        $client = new GuzzleHttp\Client();
+        $client = new \GuzzleHttp\Client();
         $containerKeys = array_keys($this->conf);
         foreach ($containerKeys as $containerKey) {
             $container['exchangeConf'] = $this->conf[$containerKey];                               
             $container['exchangeClass'] = 'Cyptalt\\Exchange\\' . $this->conf[$containerKey]["exchangeClass"];
-            $container[$containerKey] = function ($c) {
+            $container[$containerKey] = function ($c) use ($client) {
                 return new $c['exchangeClass']($c['exchangeConf'], $client);
             };
         }
@@ -47,7 +48,7 @@ class Client
     }
 
     /**
-     * Set Exchange config.
+     * Set exchange config.
      * 
      * @param string $exchange
      * @return Client
@@ -67,7 +68,7 @@ class Client
     }
 
     /**
-     * Set Pair config.
+     * Set pair config.
      * 
      * @param string $pair
      * @return Client
@@ -79,7 +80,7 @@ class Client
     }
 
     /**
-     * Get Last Price.
+     * Get last price.
      * 
      * @return array
      */
@@ -90,7 +91,7 @@ class Client
     }
 
      /**
-     * Get Value. $jsonKey is constant value.
+     * Get value. $jsonKey is constant value.
      * 
      * @param  array $jsonKey
      * @return array
@@ -99,7 +100,9 @@ class Client
     {
         $results = [];
 
-        if (count($this->exchanges) === 0) {
+        if (count($this->pairs) === 0) {
+            throw new NotSetException('Not set pairs. You should call to "$client->setPair($pair)".');        
+        } else if (count($this->exchanges) === 0) {
             $containerKeys = array_keys($this->conf);
             foreach ($containerKeys as $containerKey) {
                 $this->exchanges[$containerKey] = $this->container[$containerKey];
