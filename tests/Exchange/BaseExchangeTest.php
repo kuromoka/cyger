@@ -14,14 +14,14 @@ use Cyptalt\Exception\CouldNotConnectException;
  */
 class BaseExchangeTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var array $conf testconfig.json file content. */
-    private $conf;
+    /** @var array $testConf testconfig.json file content. */
+    private $testConf;
 
     protected function setUp()
     {
-        $conffile = __DIR__ . '/../testconfig.json';
-        $conf = new Config($conffile);
-        $this->conf = $conf->all();
+        $testConfFile = __DIR__ . '/../testconfig.json';
+        $testConf = new Config($testConfFile);
+        $this->testConf = $testConf->all();
     }
 
     public function testNormalizePairsWithPairsToRequireNormalization()
@@ -37,7 +37,7 @@ class BaseExchangeTest extends \PHPUnit_Framework_TestCase
         $client = new Client();
         $exchangeMock = $this->getMockForAbstractClass(
             BaseExchange::class, 
-            array($this->conf['FooExchange'], $client)
+            array($this->testConf['FooExchange'], $client)
         );
         $pairs = [
             'btc_jpy' => 'btc_jpy',            
@@ -60,7 +60,7 @@ class BaseExchangeTest extends \PHPUnit_Framework_TestCase
         $client = new Client();
         $exchangeMock = $this->getMockForAbstractClass(
             BaseExchange::class, 
-            array($this->conf['FooExchange'], $client)
+            array($this->testConf['FooExchange'], $client)
         );
         $pairs = [
             'BTC_JPY' => 'BTC_JPY',
@@ -92,12 +92,12 @@ class BaseExchangeTest extends \PHPUnit_Framework_TestCase
         $client = new Client(['handler' => $handler]);
         $exchangeMock = $this->getMockForAbstractClass(
             BaseExchange::class, 
-            array($this->conf['FooExchange'], $client)
+            array($this->testConf['FooExchange'], $client)
         );
         $pairs = [
-            'BTC_JPY' => $this->conf['FooExchange']['baseUrl'] . '/?pair=BTC_JPY',
-            'BTC_ETH' => $this->conf['FooExchange']['baseUrl'] . '/?pair=BTC_ETH',
-            'BTC_BCH' => $this->conf['FooExchange']['baseUrl'] . '/?pair=BTC_BCH',            
+            'BTC_JPY' => $this->testConf['FooExchange']['baseUrl'] . '/?pair=BTC_JPY',
+            'BTC_ETH' => $this->testConf['FooExchange']['baseUrl'] . '/?pair=BTC_ETH',
+            'BTC_BCH' => $this->testConf['FooExchange']['baseUrl'] . '/?pair=BTC_BCH',            
         ];
         $actual = $exchangeMock->sendRequest($pairs);
 
@@ -114,10 +114,10 @@ class BaseExchangeTest extends \PHPUnit_Framework_TestCase
         $client = new Client(['handler' => $handler]);
         $exchangeMock = $this->getMockForAbstractClass(
             BaseExchange::class, 
-            array($this->conf['FooExchange'], $client)
+            array($this->testConf['FooExchange'], $client)
         );
         $pairs = [
-            'BTC_JPY' => $this->conf['FooExchange']['baseUrl'] . '/?pair=BTC_JPY',
+            'BTC_JPY' => $this->testConf['FooExchange']['baseUrl'] . '/?pair=BTC_JPY',
         ];
         $actual = $exchangeMock->sendRequest($pairs);
     }

@@ -29,8 +29,8 @@ class Client
      */
     public function __construct()
     {
-        $conffile = __DIR__ . '/config.json';
-        $conf = new Config($conffile);
+        $confFile = __DIR__ . '/config.json';
+        $conf = new Config($confFile);
         $this->conf = $conf->all();
         $container = new Container();
 
