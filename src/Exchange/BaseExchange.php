@@ -3,7 +3,6 @@
 namespace Cyptalt\Exchange;
 
 use GuzzleHttp\Pool;
-use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
 use Cyptalt\Exception\CouldNotConnectException;
 
@@ -18,14 +17,19 @@ abstract class BaseExchange
     /** @var array $conf config.json file content of Child exchange. */
     protected $conf;
 
+    /** @var array $client GuzzleHttp\Client Object. */
+    private $client;    
+
     /**
      * Set config.json file content of Child exchange.
      * 
-     * @param  array $conf
+     * @param  array             $conf
+     * @param  GuzzleHttp\Client $client
      */
-    public function __construct($conf)
+    public function __construct($conf, $client)
     {
         $this->conf = $conf;
+        $this->client = $client;
     }
 
     /**
@@ -51,7 +55,7 @@ abstract class BaseExchange
      */
     public function normalizePairs($pairs)
     {
-        $searchSymbolDelimiters = ['/', '-', '_'];
+        $searchSymbolDelimiters = ['_', '-', '/'];
         foreach ($pairs as $key => $pair) {
             if ($this->conf['symbolLetter'] === self::UPPER_CASE) {
                 $pairs[$key] = strtoupper($pair);
@@ -59,7 +63,7 @@ abstract class BaseExchange
                 $pairs[$key] = strtolower($pair);                
             }
 
-            if(strpos($pair, $this->conf['symbolDelimiter']) === false){
+            if(strpos($pair, $this->conf['symbolDelimiter']) === false) {
                 $pairs[$key] = str_replace($searchSymbolDelimiters, $this->conf['symbolDelimiter'], $pair);
             }
         }
@@ -75,15 +79,14 @@ abstract class BaseExchange
      */
     public function sendRequest($pairs)
     {
-        $client = new Client();
         $requests = function ($pairs) {
             foreach ($pairs as $key => $pair) {
                 yield $key => new Request('GET', $pair);
             }
         };
-        $pool = new Pool($client, $requests($pairs), [
+        $pool = new Pool($this->client, $requests($pairs), [
             'concurrency' => 5,
-            'fulfilled' => function ($response, $index) use (&$pairs) {
+            'fulfilled' => function ($response, $index) use (&$pairs) {                
                 $pairs[$index] = json_decode($response->getBody()->getContents(), true);
             },
             'rejected' => function ($reason, $index) {

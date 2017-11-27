@@ -34,12 +34,13 @@ class Client
         $this->conf = $conf->all();
         $container = new Container();
 
+        $client = new GuzzleHttp\Client();
         $containerKeys = array_keys($this->conf);
         foreach ($containerKeys as $containerKey) {
             $container['exchangeConf'] = $this->conf[$containerKey];                               
             $container['exchangeClass'] = 'Cyptalt\\Exchange\\' . $this->conf[$containerKey]["exchangeClass"];
             $container[$containerKey] = function ($c) {
-                return new $c['exchangeClass']($c['exchangeConf']);
+                return new $c['exchangeClass']($c['exchangeConf'], $client);
             };
         }
         $this->container = $container;

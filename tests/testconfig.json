@@ -1,0 +1,32 @@
+{
+  "FooExchange": {
+    "exchangeClass": "FooExchange",
+    "baseUrl": "http://example.com/foo/",
+    "lastKey": "last",
+    "bidKey": "bid",
+    "askKey": "ask",
+    "volumeKey": "volume",
+    "symbolLetter": "uppercase",
+    "symbolDelimiter": "_"
+  },
+  "BarExchange": {
+    "exchangeClass": "BarExchange",
+    "baseUrl": "http://example.com/bar/",
+    "lastKey": "last",
+    "bidKey": "bid",
+    "askKey": "ask",
+    "volumeKey": "volume",
+    "symbolLetter": "uppercase",
+    "symbolDelimiter": "-"
+  },
+  "BazExchange": {
+    "exchangeClass": "BazExchange",
+    "baseUrl": "http://example.com/baz/",
+    "lastKey": "last",
+    "bidKey": "bid",
+    "askKey": "ask",
+    "volumeKey": "volume",
+    "symbolLetter": "lowercase",
+    "symbolDelimiter": "_"
+  }
+}
