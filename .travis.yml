@@ -14,7 +14,7 @@ services:
   - docker
 
 before_install:
-- docker-compose run —-rm composer install
+  - docker-compose run --rm composer composer install
 
 script:
-- docker-compose run —-rm composer ./vendor/bin/phpunit
+  - docker-compose run --rm composer ./vendor/bin/phpunit
