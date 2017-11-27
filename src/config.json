@@ -4,8 +4,8 @@
     "baseUrl": "https://api.bitflyer.jp/v1/",
     "lastKey": "ltp",
     "bidKey": "best_bid",
-    "askKey": "ltp",
-    "volumeKey": "ltp",
+    "askKey": "best_ask",
+    "volumeKey": "volume",
     "symbolLetter": "uppercase",
     "symbolDelimiter": "_"
   }

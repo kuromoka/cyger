@@ -12,6 +12,9 @@ use Cyptalt\Exception\NotSetException;
 class Client
 {
     const LAST_KEY = 'lastKey';
+    const BID_KEY = 'bidKey';
+    const ASK_KEY = 'askKey';
+    const VOLUME_KEY = 'volumeKey';    
 
     /** @var array $conf config.json file content. */
     private $conf;
@@ -87,6 +90,39 @@ class Client
     public function getLastPrice()
     {
         $results = $this->getValue(self::LAST_KEY);
+        return $results;
+    }
+
+    /**
+     * Get bid price.
+     * 
+     * @return array
+     */
+    public function getBidPrice()
+    {
+        $results = $this->getValue(self::BID_KEY);
+        return $results;
+    }
+
+    /**
+     * Get ask price.
+     * 
+     * @return array
+     */
+    public function getAskPrice()
+    {
+        $results = $this->getValue(self::ASK_KEY);
+        return $results;
+    }
+
+    /**
+     * Get volume.
+     * 
+     * @return array
+     */
+    public function getVolume()
+    {
+        $results = $this->getValue(self::VOLUME_KEY);
         return $results;
     }
 
