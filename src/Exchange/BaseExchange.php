@@ -64,7 +64,7 @@ abstract class BaseExchange
             }
 
             if(strpos($pair, $this->conf['symbolDelimiter']) === false) {
-                $pairs[$key] = str_replace($searchSymbolDelimiters, $this->conf['symbolDelimiter'], $pair);
+                $pairs[$key] = str_replace($searchSymbolDelimiters, $this->conf['symbolDelimiter'], $pairs[$key]);
             }
         }
 
