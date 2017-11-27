@@ -12,8 +12,16 @@ class BitFlyerExchange extends BaseExchange
      */
     public function getUrl($pairs)
     {
+        $reversedPairs = [
+            'BTC_ETH' => 'ETH_BTC',
+            'BTC_BCH' => 'BCH_BTC',            
+        ];
         foreach ($pairs as $key => $pair) {
-            $pairs[$key] = $this->conf['baseUrl'] . '/getticker?product_code=' . $pair;            
+            if (array_key_exists($pair, $reversedPairs)) {
+                $pairs[$key] = $this->conf['baseUrl'] . '/getticker?product_code=' . $reversedPairs[$pair];                                 
+            } else {
+                $pairs[$key] = $this->conf['baseUrl'] . '/getticker?product_code=' . $pair;                 
+            }
         }
 
         return $pairs;        
