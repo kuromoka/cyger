@@ -33,7 +33,7 @@ class BitFlyerExchangeTest extends \PHPUnit_Framework_TestCase
             'BTC_ETH' => $this->conf['bitFlyer']['baseUrl'] . $this->conf['bitFlyer']['requestPath'] . 'ETH_BTC',            
         ];
 
-        $client = new Client();
+        $client = new Client(['http_errors' => false]);
         $exchange = new BitFlyerExchange($this->conf['bitFlyer'], $client);
         $pairs = [
             'BTC_ETH' => 'BTC_ETH',            
@@ -49,7 +49,7 @@ class BitFlyerExchangeTest extends \PHPUnit_Framework_TestCase
             'BTC_JPY' => $this->conf['bitFlyer']['baseUrl'] . $this->conf['bitFlyer']['requestPath'] . 'BTC_JPY',            
         ];
 
-        $client = new Client();
+        $client = new Client(['http_errors' => false]);
         $exchange = new BitFlyerExchange($this->conf['bitFlyer'], $client);
         $pairs = [
             'BTC_JPY' => 'BTC_JPY',            
@@ -67,7 +67,7 @@ class BitFlyerExchangeTest extends \PHPUnit_Framework_TestCase
             'BCH_BTC' => '0.20',
         ];
 
-        $client = new Client();
+        $client = new Client(['http_errors' => false]);
         $exchange = new BitFlyerExchange($this->conf['bitFlyer'], $client);
         $pairs = [
             'BTC_JPY' => [
@@ -93,7 +93,7 @@ class BitFlyerExchangeTest extends \PHPUnit_Framework_TestCase
             'BCH_BTC' => null,
         ];
 
-        $client = new Client();
+        $client = new Client(['http_errors' => false]);
         $exchange = new BitFlyerExchange($this->conf['bitFlyer'], $client);
         $pairs = [
             'BTC_JPY' => [

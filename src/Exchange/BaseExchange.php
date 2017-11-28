@@ -86,7 +86,7 @@ abstract class BaseExchange
         };
         $pool = new Pool($this->client, $requests($pairs), [
             'concurrency' => 5,
-            'fulfilled' => function ($response, $index) use (&$pairs) {                
+            'fulfilled' => function ($response, $index) use (&$pairs) {
                 $pairs[$index] = json_decode($response->getBody()->getContents(), true);
             },
             'rejected' => function ($reason, $index) {

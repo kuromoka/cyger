@@ -6,6 +6,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\Exception\RequestException;
 use Noodlehaus\Config;
 use Cyptalt\Exchange\BaseExchange;
 use Cyptalt\Exception\CouldNotConnectException;
@@ -35,7 +36,7 @@ class BaseExchangeTest extends \PHPUnit_Framework_TestCase
             'BTC/BTG' => 'BTC_BTG',
         ];
 
-        $client = new Client();
+        $client = new Client(['http_errors' => false]);
         $exchangeMock = $this->getMockForAbstractClass(
             BaseExchange::class, 
             array($this->testConf['FooExchange'], $client)
@@ -58,7 +59,7 @@ class BaseExchangeTest extends \PHPUnit_Framework_TestCase
             'BTC_JPY' => 'BTC_JPY',
         ];
 
-        $client = new Client();
+        $client = new Client(['http_errors' => false]);
         $exchangeMock = $this->getMockForAbstractClass(
             BaseExchange::class, 
             array($this->testConf['FooExchange'], $client)
@@ -90,7 +91,7 @@ class BaseExchangeTest extends \PHPUnit_Framework_TestCase
         $r3 = new Response(200, [], '{ "last": 0.20 }');
         $mock = new MockHandler([$r1, $r2, $r3]);
         $handler = HandlerStack::create($mock);      
-        $client = new Client(['handler' => $handler]);
+        $client = new Client(['handler' => $handler, 'http_errors' => false]);
         $exchangeMock = $this->getMockForAbstractClass(
             BaseExchange::class, 
             array($this->testConf['FooExchange'], $client)
@@ -108,17 +109,14 @@ class BaseExchangeTest extends \PHPUnit_Framework_TestCase
     public function testSendRequestWithUnConnectableUrl()
     {
         $this->setExpectedException(CouldNotConnectException::class);
-
-        $r1 = new Response(404);
-        $mock = new MockHandler([$r1]);
-        $handler = HandlerStack::create($mock);        
-        $client = new Client(['handler' => $handler]);
+       
+        $client = new Client(['http_errors' => false]);
         $exchangeMock = $this->getMockForAbstractClass(
             BaseExchange::class, 
             array($this->testConf['FooExchange'], $client)
         );
         $pairs = [
-            'BTC_JPY' => $this->testConf['FooExchange']['baseUrl'] . $this->testConf['FooExchange']['requestPath'] . 'BTC_JPY',
+            'BTC_JPY' => null,
         ];
         $actual = $exchangeMock->sendRequest($pairs);
     }

@@ -30,7 +30,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
     public function testSetExchangeWithIncorrectName()
     {
-        $guzzleClient = new \GuzzleHttp\Client();
+        $guzzleClient = new \GuzzleHttp\Client(['http_errors' => false]);
         $exchangeConf1 = $this->conf['bitFlyer'];
         $exchangeClass1 = 'Cyptalt\\Exchange\\' . $this->conf['bitFlyer']["exchangeClass"];      
         $expected = [
@@ -47,7 +47,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
     public function testSetExchangeWithCorrectName()
     {
-        $guzzleClient = new \GuzzleHttp\Client();
+        $guzzleClient = new \GuzzleHttp\Client(['http_errors' => false]);
         $exchangeConf1 = $this->conf['bitFlyer'];
         $exchangeClass1 = 'Cyptalt\\Exchange\\' . $this->conf['bitFlyer']["exchangeClass"];      
         $expected = [
@@ -103,7 +103,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $results = $client->setPair('BTC_ETH')->getLastPrice();
         if (!empty($results)) {
             foreach ($results as $key => $result) {
-                if (gettype($result['BTC_ETH']) === 'string') {
+                if (isset($result['BTC_ETH']) && gettype($result['BTC_ETH']) === 'string') {
                     $results[$key]['BTC_ETH'] = 'string';
                 }
             }

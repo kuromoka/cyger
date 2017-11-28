@@ -38,7 +38,7 @@ class Client
         $this->conf = $conf->all();
         $container = new Container();
 
-        $client = new \GuzzleHttp\Client();
+        $client = new \GuzzleHttp\Client(['http_errors' => false]);
         $containerKeys = array_keys($this->conf);
         foreach ($containerKeys as $containerKey) {
             $container['exchangeConf'] = $this->conf[$containerKey];                               
