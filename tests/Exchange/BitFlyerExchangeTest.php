@@ -30,7 +30,7 @@ class BitFlyerExchangeTest extends \PHPUnit_Framework_TestCase
     public function testGetUrlWithPairsToRequireReverse()
     {
         $expected = [
-            'BTC_ETH' => $this->conf['bitFlyer']['baseUrl'] . $this->conf['bitFlyer']['requestPath'] . 'ETH_BTC',            
+            'BTC_ETH' => $this->conf['bitFlyer']['baseUrl'] . $this->conf['bitFlyer']['tickerPath'] . 'ETH_BTC',            
         ];
 
         $client = new Client(['http_errors' => false]);
@@ -46,7 +46,7 @@ class BitFlyerExchangeTest extends \PHPUnit_Framework_TestCase
     public function testGetUrlWithPairsNotToRequireReverse()
     {
         $expected = [
-            'BTC_JPY' => $this->conf['bitFlyer']['baseUrl'] . $this->conf['bitFlyer']['requestPath'] . 'BTC_JPY',            
+            'BTC_JPY' => $this->conf['bitFlyer']['baseUrl'] . $this->conf['bitFlyer']['tickerPath'] . 'BTC_JPY',            
         ];
 
         $client = new Client(['http_errors' => false]);

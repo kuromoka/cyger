@@ -22,10 +22,10 @@ class Client
     /** @var array $container Pimple config. */
     private $container = [];
 
-    /** @var ExchangeInterface[] $exchanges Exchange config. */  
+    /** @var ExchangeInterface[] $exchanges exchange config. */  
     private $exchanges = [];
 
-    /** @var string[] $pairs Pair config. */  
+    /** @var string[] $pairs pair config. */  
     private $pairs = [];
 
     /**

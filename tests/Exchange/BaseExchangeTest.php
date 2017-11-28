@@ -97,9 +97,9 @@ class BaseExchangeTest extends \PHPUnit_Framework_TestCase
             array($this->testConf['FooExchange'], $client)
         );
         $pairs = [
-            'BTC_JPY' => $this->testConf['FooExchange']['baseUrl'] . $this->testConf['FooExchange']['requestPath'] . 'BTC_JPY',
-            'BTC_ETH' => $this->testConf['FooExchange']['baseUrl'] . $this->testConf['FooExchange']['requestPath'] . 'BTC_ETH',
-            'BTC_BCH' => $this->testConf['FooExchange']['baseUrl'] . $this->testConf['FooExchange']['requestPath'] . 'BTC_BCH',            
+            'BTC_JPY' => $this->testConf['FooExchange']['baseUrl'] . $this->testConf['FooExchange']['tickerPath'] . 'BTC_JPY',
+            'BTC_ETH' => $this->testConf['FooExchange']['baseUrl'] . $this->testConf['FooExchange']['tickerPath'] . 'BTC_ETH',
+            'BTC_BCH' => $this->testConf['FooExchange']['baseUrl'] . $this->testConf['FooExchange']['tickerPath'] . 'BTC_BCH',            
         ];
         $actual = $exchangeMock->sendRequest($pairs);
 

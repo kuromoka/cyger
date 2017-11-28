@@ -2,7 +2,7 @@
   "FooExchange": {
     "exchangeClass": "FooExchange",
     "baseUrl": "http://example.com/foo/",
-    "requestPath": "ticker?pair=",
+    "tickerPath": "ticker?pair=",
     "lastKey": "last",
     "bidKey": "bid",
     "askKey": "ask",
@@ -13,7 +13,7 @@
   "BarExchange": {
     "exchangeClass": "BarExchange",
     "baseUrl": "http://example.com/bar/",
-    "requestPath": "ticker?pair=",  
+    "requestTickerPath": "ticker?pair=",  
     "lastKey": "last",
     "bidKey": "bid",
     "askKey": "ask",
@@ -24,7 +24,7 @@
   "BazExchange": {
     "exchangeClass": "BazExchange",
     "baseUrl": "http://example.com/baz/",
-    "requestPath": "ticker?pair=",    
+    "requestTickerPath": "ticker?pair=",    
     "lastKey": "last",
     "bidKey": "bid",
     "askKey": "ask",

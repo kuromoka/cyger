@@ -18,9 +18,9 @@ class BitFlyerExchange extends BaseExchange
         ];
         foreach ($pairs as $key => $pair) {
             if (array_key_exists($pair, $reversedPairs)) {
-                $pairs[$key] = $this->conf['baseUrl'] . $this->conf['requestPath'] . $reversedPairs[$pair];                                 
+                $pairs[$key] = $this->conf['baseUrl'] . $this->conf['tickerPath'] . $reversedPairs[$pair];                                 
             } else {
-                $pairs[$key] = $this->conf['baseUrl'] . $this->conf['requestPath'] . $pair;                 
+                $pairs[$key] = $this->conf['baseUrl'] . $this->conf['tickerPath'] . $pair;                 
             }
         }
 
