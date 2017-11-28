@@ -9,6 +9,11 @@
             "email": "kuromokapb@gmail.com"
         }
     ],
+    "config": {
+        "platform": {
+            "php": "5.5.38"
+        }
+    },
     "require": {
         "guzzlehttp/guzzle": "6.*",
         "hassankhan/config": "0.11.*",
