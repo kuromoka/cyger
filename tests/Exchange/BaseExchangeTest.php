@@ -10,6 +10,7 @@ use GuzzleHttp\Exception\RequestException;
 use Noodlehaus\Config;
 use Cyptalt\Exchange\BaseExchange;
 use Cyptalt\Exception\CouldNotConnectException;
+use Cyptalt\Exception\InvalidValueException;
 
 /**
  * BaseExchangeTest Class
@@ -113,6 +114,24 @@ class BaseExchangeTest extends \PHPUnit_Framework_TestCase
         $actual = $exchangeMock->normalizePairs($pairs, $validPairs);
 
         $this->assertEquals($expected, $actual);
+    }
+
+    public function testNormalizePairsWithInvalidPairs()
+    {
+        $this->setExpectedException(InvalidValueException::class);    
+
+        $client = new Client(['http_errors' => false]);
+        $exchangeMock = $this->getMockForAbstractClass(
+            BaseExchange::class, 
+            array($this->testConf['FooExchange'], $client)
+        );
+        $pairs = [
+            'BTC_JPYY' => 'BTC_JPYY',
+        ];
+        $validPairs = [
+            'BTC_JPY' => 'BTC_JPY',
+        ];
+        $actual = $exchangeMock->normalizePairs($pairs, $validPairs);
     }
 
     public function testSendRequestWithConnectableUrl()

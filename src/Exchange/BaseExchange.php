@@ -6,6 +6,7 @@ use GuzzleHttp\Pool;
 use GuzzleHttp\Psr7\Request;
 use Cyptalt\Exception;
 use Cyptalt\Exception\CouldNotConnectException;
+use Cyptalt\Exception\InvalidValueException;
 
 /**
  * BaseExchange Class
@@ -102,6 +103,10 @@ abstract class BaseExchange
                 if (in_array($pieces[1]. $this->conf['symbolDelimiter'] . $pieces[0], $validPairs)) {
                     $pairs[$key] = $pieces[1]. $this->conf['symbolDelimiter'] . $pieces[0];
                 }
+            }
+
+            if (!in_array($pairs[$key], $validPairs)) {
+                throw new InvalidValueException('Invalid pairs. Please check pairs that you set again.');
             }
         }
 
