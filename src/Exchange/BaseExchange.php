@@ -6,7 +6,6 @@ use GuzzleHttp\Pool;
 use GuzzleHttp\Psr7\Request;
 use Cyptalt\Exception;
 use Cyptalt\Exception\CouldNotConnectException;
-use Cyptalt\Exception\InvalidValueException;
 
 /**
  * BaseExchange Class
@@ -106,7 +105,8 @@ abstract class BaseExchange
             }
 
             if (!in_array($pairs[$key], $validPairs)) {
-                throw new InvalidValueException('Invalid pairs. Please check pairs that you set again.');
+                // Invalid pair
+                $pairs[$key] = null;
             }
         }
 
@@ -123,7 +123,9 @@ abstract class BaseExchange
     {
         $requests = function ($pairs) {
             foreach ($pairs as $key => $pair) {
-                yield $key => new Request('GET', $pair);
+                if (!is_null($pair)) {
+                    yield $key => new Request('GET', $pair);
+                }
             }
         };
         $pool = new Pool($this->client, $requests($pairs), [

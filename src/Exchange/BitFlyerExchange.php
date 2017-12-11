@@ -28,7 +28,9 @@ class BitFlyerExchange extends BaseExchange
     public function getUrl($pairs)
     {
         foreach ($pairs as $key => $pair) {
-            $pairs[$key] = $this->conf['baseUrl'] . $this->conf['tickerPath'] . $pair;                 
+            if (!is_null($pair)) {
+                $pairs[$key] = $this->conf['baseUrl'] . $this->conf['tickerPath'] . $pair;
+            }
         }
 
         return $pairs;        
