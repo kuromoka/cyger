@@ -2,6 +2,7 @@
   "bitFlyer": {
     "exchangeClass": "BitFlyerExchange",
     "baseUrl": "https://api.bitflyer.jp/v1/",
+    "marketPath": "getmarkets",    
     "tickerPath": "getticker?product_code=",
     "lastKey": "ltp",
     "bidKey": "best_bid",

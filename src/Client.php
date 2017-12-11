@@ -146,7 +146,9 @@ class Client
         }
 
         foreach ($this->exchanges as $key => $exchange) {
-            $pairs = $exchange->normalizePairs($this->pairs);
+            $marketResults = $exchange->fetchMarketData();
+            $validPairs = $exchange->getValidPairs($marketResults);
+            $pairs = $exchange->normalizePairs($this->pairs, $validPairs);
             $pairs = $exchange->getUrl($pairs);
             $pairs = $exchange->sendRequest($pairs);
             $results[$key] = $exchange->parseResult($pairs, $jsonKey);

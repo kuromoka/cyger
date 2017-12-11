@@ -2,6 +2,7 @@
   "FooExchange": {
     "exchangeClass": "FooExchange",
     "baseUrl": "http://example.com/foo/",
+    "marketPath": "getmarkets",        
     "tickerPath": "ticker?pair=",
     "lastKey": "last",
     "bidKey": "bid",
@@ -13,6 +14,7 @@
   "BarExchange": {
     "exchangeClass": "BarExchange",
     "baseUrl": "http://example.com/bar/",
+    "marketPath": "getmarkets",        
     "requestTickerPath": "ticker?pair=",  
     "lastKey": "last",
     "bidKey": "bid",
@@ -24,6 +26,7 @@
   "BazExchange": {
     "exchangeClass": "BazExchange",
     "baseUrl": "http://example.com/baz/",
+    "marketPath": "getmarkets",        
     "requestTickerPath": "ticker?pair=",    
     "lastKey": "last",
     "bidKey": "bid",

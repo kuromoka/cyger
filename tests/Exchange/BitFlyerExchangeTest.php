@@ -27,7 +27,45 @@ class BitFlyerExchangeTest extends \PHPUnit_Framework_TestCase
         $this->testConf = $testConf->all();
     }
 
-    public function testGetUrlWithPairsToRequireReverse()
+    public function testGetValidPairsWithNoEmptyMarketResults()
+    {
+        $expected = [
+            'BTC_JPY',
+            'ETH_BTC',
+            'BCH_BTC',
+        ];
+
+        $client = new Client(['http_errors' => false]);
+        $exchange = new BitFlyerExchange($this->conf['bitFlyer'], $client);
+        $marketResults = [
+            [
+                'product_code' => 'BTC_JPY',
+            ],
+            [
+                'product_code' => 'ETH_BTC',
+            ],
+            [
+                'product_code' => 'BCH_BTC',
+            ],
+        ];
+        $actual = $exchange->getValidPairs($marketResults);
+        
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testGetValidPairsWithEmptyMarketResults()
+    {
+        $expected = [];
+
+        $client = new Client(['http_errors' => false]);
+        $exchange = new BitFlyerExchange($this->conf['bitFlyer'], $client);
+        $marketResults = [];
+        $actual = $exchange->getValidPairs($marketResults);
+        
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testGetUrl()
     {
         $expected = [
             'BTC_ETH' => $this->conf['bitFlyer']['baseUrl'] . $this->conf['bitFlyer']['tickerPath'] . 'ETH_BTC',            
@@ -36,23 +74,7 @@ class BitFlyerExchangeTest extends \PHPUnit_Framework_TestCase
         $client = new Client(['http_errors' => false]);
         $exchange = new BitFlyerExchange($this->conf['bitFlyer'], $client);
         $pairs = [
-            'BTC_ETH' => 'BTC_ETH',            
-        ];
-        $actual = $exchange->getUrl($pairs);
-
-        $this->assertEquals($expected, $actual);
-    }
-
-    public function testGetUrlWithPairsNotToRequireReverse()
-    {
-        $expected = [
-            'BTC_JPY' => $this->conf['bitFlyer']['baseUrl'] . $this->conf['bitFlyer']['tickerPath'] . 'BTC_JPY',            
-        ];
-
-        $client = new Client(['http_errors' => false]);
-        $exchange = new BitFlyerExchange($this->conf['bitFlyer'], $client);
-        $pairs = [
-            'BTC_JPY' => 'BTC_JPY',            
+            'BTC_ETH' => 'ETH_BTC',            
         ];
         $actual = $exchange->getUrl($pairs);
 

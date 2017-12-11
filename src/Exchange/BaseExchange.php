@@ -4,6 +4,7 @@ namespace Cyptalt\Exchange;
 
 use GuzzleHttp\Pool;
 use GuzzleHttp\Psr7\Request;
+use Cyptalt\Exception;
 use Cyptalt\Exception\CouldNotConnectException;
 
 /**
@@ -18,7 +19,7 @@ abstract class BaseExchange
     protected $conf;
 
     /** @var array $client GuzzleHttp\Client Object. */
-    private $client;    
+    protected $client;
 
     /**
      * Set config.json file content of Child exchange.
@@ -33,6 +34,13 @@ abstract class BaseExchange
     }
 
     /**
+     * Get valid pairs.
+     * 
+     * @param  array $pairs
+     */
+    abstract public function getValidPairs($marketResults);
+
+    /**
      * Get API Url from pair config.
      * 
      * @param  array $pairs
@@ -40,7 +48,7 @@ abstract class BaseExchange
     abstract public function getUrl($pairs);
     
     /**
-     * Get each value from API result.
+     * Get value from API result.
      * 
      * @param  array  $pairs
      * @param  string $jsonKey
@@ -48,12 +56,34 @@ abstract class BaseExchange
     abstract public function parseResult($pairs, $jsonKey);
 
     /**
-     * According to exchange API, normalize pair config.
+     * Fetch available market data from API.
      * 
-     * @param  array $pairs
      * @return array
      */
-    public function normalizePairs($pairs)
+    public function fetchMarketData()
+    {
+        $marketResults = [];
+        $marketUrl = $this->conf['baseUrl'] . $this->conf['marketPath'];
+        if (!empty($marketUrl)) {
+            try {
+                $response = $this->client->request('GET', $marketUrl);
+                $marketResults = json_decode($response->getBody()->getContents(), true);
+            } catch (Exception $e) {
+                throw new CouldNotConnectException($e->getMessage());      
+            }
+        }
+
+        return $marketResults;
+    }
+
+    /**
+     * According to API, normalize pair config.
+     * 
+     * @param  array $pairs
+     * @param  array $validPairs
+     * @return array
+     */
+    public function normalizePairs($pairs, $validPairs)
     {
         $searchSymbolDelimiters = ['_', '-', '/'];
         foreach ($pairs as $key => $pair) {
@@ -65,6 +95,13 @@ abstract class BaseExchange
 
             if(strpos($pair, $this->conf['symbolDelimiter']) === false) {
                 $pairs[$key] = str_replace($searchSymbolDelimiters, $this->conf['symbolDelimiter'], $pairs[$key]);
+            }
+
+            $pieces = explode($this->conf['symbolDelimiter'], $pairs[$key]);
+            if (count($pieces) === 2) {
+                if (in_array($pieces[1]. $this->conf['symbolDelimiter'] . $pieces[0], $validPairs)) {
+                    $pairs[$key] = $pieces[1]. $this->conf['symbolDelimiter'] . $pieces[0];
+                }
             }
         }
 

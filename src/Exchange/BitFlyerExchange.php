@@ -10,18 +10,25 @@ class BitFlyerExchange extends BaseExchange
     /**
      * {@inheritDoc}
      */
+    public function getValidPairs($marketResults)
+    {
+        $validPairs = [];
+        foreach ($marketResults as $marketResult) {
+            if (isset($marketResult['product_code'])) {
+                $validPairs[] = $marketResult['product_code'];
+            }
+        }
+
+        return $validPairs;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getUrl($pairs)
     {
-        $reversedPairs = [
-            'BTC_ETH' => 'ETH_BTC',
-            'BTC_BCH' => 'BCH_BTC',            
-        ];
         foreach ($pairs as $key => $pair) {
-            if (array_key_exists($pair, $reversedPairs)) {
-                $pairs[$key] = $this->conf['baseUrl'] . $this->conf['tickerPath'] . $reversedPairs[$pair];                                 
-            } else {
-                $pairs[$key] = $this->conf['baseUrl'] . $this->conf['tickerPath'] . $pair;                 
-            }
+            $pairs[$key] = $this->conf['baseUrl'] . $this->conf['tickerPath'] . $pair;                 
         }
 
         return $pairs;        

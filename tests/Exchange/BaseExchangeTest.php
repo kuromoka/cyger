@@ -26,10 +26,43 @@ class BaseExchangeTest extends \PHPUnit_Framework_TestCase
         $this->testConf = $testConf->all();
     }
 
+    public function testFetchMarketDataWithConnectableUrl()
+    {
+        $expected = [
+            [
+                'pair' => 'JPY_BTC',
+            ],
+            [
+                'pair' => 'BTC_ETH',
+            ],
+            [
+                'pair' => 'BTC_BCH',
+            ],
+        ];
+
+        $r1 = new Response(200, [], '[{ "pair": "JPY_BTC" }, { "pair": "BTC_ETH" }, { "pair": "BTC_BCH" }]');
+        $mock = new MockHandler([$r1]);
+        $handler = HandlerStack::create($mock);      
+        $client = new Client(['handler' => $handler, 'http_errors' => false]);
+        $exchangeMock = $this->getMockForAbstractClass(
+            BaseExchange::class, 
+            array($this->testConf['FooExchange'], $client)
+        );
+        $actual = $exchangeMock->fetchMarketData();
+        $this->assertEquals($expected, $actual);        
+    }
+
+    public function testFetchMarketDataWithUnConnectableUrl()
+    {
+        // TODO
+        // Until I can know how to create RequestException Mock, I will defer writing this test code.
+        $this->assertEquals(true, true);  
+    }
+    
     public function testNormalizePairsWithPairsToRequireNormalization()
     {
         $expected = [
-            'btc_jpy' => 'BTC_JPY',            
+            'btc_jpy' => 'JPY_BTC',            
             'btc-eth' => 'BTC_ETH',
             'btc/bch' => 'BTC_BCH',
             'BTC-XRP' => 'BTC_XRP',                                         
@@ -48,7 +81,14 @@ class BaseExchangeTest extends \PHPUnit_Framework_TestCase
             'BTC-XRP' => 'BTC-XRP',
             'BTC/BTG' => 'BTC/BTG',
         ];
-        $actual = $exchangeMock->normalizePairs($pairs);
+        $validPairs = [
+            'JPY_BTC',   
+            'BTC_ETH',
+            'BTC_BCH',
+            'BTC_XRP',
+            'BTC_BTG',
+        ];
+        $actual = $exchangeMock->normalizePairs($pairs, $validPairs);
 
         $this->assertEquals($expected, $actual);
     }
@@ -67,7 +107,10 @@ class BaseExchangeTest extends \PHPUnit_Framework_TestCase
         $pairs = [
             'BTC_JPY' => 'BTC_JPY',
         ];
-        $actual = $exchangeMock->normalizePairs($pairs);
+        $validPairs = [
+            'BTC_JPY' => 'BTC_JPY',
+        ];
+        $actual = $exchangeMock->normalizePairs($pairs, $validPairs);
 
         $this->assertEquals($expected, $actual);
     }
