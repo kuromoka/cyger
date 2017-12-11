@@ -10,5 +10,17 @@
     "volumeKey": "volume",
     "symbolLetter": "uppercase",
     "symbolDelimiter": "_"
+  },
+  "Coincheck": {
+    "exchangeClass": "CoincheckExchange",
+    "baseUrl": "https://coincheck.com/",
+    "marketPath": "",    
+    "tickerPath": "/api/ticker",
+    "lastKey": "last",
+    "bidKey": "bid",
+    "askKey": "ask",
+    "volumeKey": "volume",
+    "symbolLetter": "lowercase",
+    "symbolDelimiter": "_"
   }
 }

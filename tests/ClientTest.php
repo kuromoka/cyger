@@ -89,28 +89,53 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     /**
      * This test checks whether to only get last price, but don't (can't) check last price value.
      */
-    public function testGetLastPriceWithRealRequestToAllExchanges()
+    public function testGetLastPriceWithRealRequestToAllExchangesExceptSomeExchanges()
     {
-        $expected = [];        
+        $exceptExchanges = ['Coincheck'];
+        $expected = [];      
         $containerKeys = array_keys($this->conf);
         foreach ($containerKeys as $containerKey) {
-            $expected[$containerKey] = [
-                'BTC_ETH' => 'string',
-            ];
+            if (!in_array($containerKey, $exceptExchanges)) {
+                $expected[$containerKey] = [
+                    'BTC_ETH' => 'string',
+                ];
+            }
         }
 
         $client = new Client();
-        $results = $client->setPair('BTC_ETH')->getLastPrice();
+        $results = $client->setPair('BTC_ETH')->getLastPrice();        
         if (!empty($results)) {
             foreach ($results as $key => $result) {
-                if (isset($result['BTC_ETH']) && gettype($result['BTC_ETH']) === 'string') {
-                    $results[$key]['BTC_ETH'] = 'string';
+                if (!in_array($key, $exceptExchanges)) {                    
+                    if (isset($result['BTC_ETH']) && gettype($result['BTC_ETH']) === 'string') {
+                        $results[$key]['BTC_ETH'] = 'string';
+                    }
+                } else {
+                    unset($results[$key]);
                 }
             }
-            $actual = $results;
-        } else {
-            $actual = $results;
         }
+        $actual = $results;        
+
+        $this->assertEquals($expected, $actual); 
+    }
+
+    public function testGetLastPriceWithRealRequestToCoincheckExchange()
+    {
+        $expected = [
+            'Coincheck' => [
+                'btc_jpy' => 'string',
+            ],
+        ];
+
+        $client = new Client();
+        $result = $client->setExchange('Coincheck')->setPair('btc_jpy')->getLastPrice();        
+        if (!empty($result)) {
+            if (isset($result['Coincheck']['btc_jpy']) && gettype($result['Coincheck']['btc_jpy']) === 'string') {
+                $result['Coincheck']['btc_jpy'] = 'string';
+            }
+        }
+        $actual = $result; 
 
         $this->assertEquals($expected, $actual); 
     }

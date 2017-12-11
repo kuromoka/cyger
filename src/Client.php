@@ -41,10 +41,13 @@ class Client
         $client = new \GuzzleHttp\Client(['http_errors' => false]);
         $containerKeys = array_keys($this->conf);
         foreach ($containerKeys as $containerKey) {
-            $container['exchangeConf'] = $this->conf[$containerKey];                               
-            $container['exchangeClass'] = 'Cyptalt\\Exchange\\' . $this->conf[$containerKey]["exchangeClass"];
-            $container[$containerKey] = function ($c) use ($client) {
-                return new $c['exchangeClass']($c['exchangeConf'], $client);
+            $exchangeConf = $containerKey . 'Conf';
+            $exchangeClass = $containerKey . 'Class';
+            
+            $container[$exchangeConf] = $this->conf[$containerKey];                               
+            $container[$exchangeClass] = 'Cyptalt\\Exchange\\' . $this->conf[$containerKey]["exchangeClass"];
+            $container[$containerKey] = function ($c) use ($client, $exchangeConf, $exchangeClass) {
+                return new $c[$exchangeClass]($c[$exchangeConf], $client);
             };
         }
         $this->container = $container;
