@@ -22,5 +22,17 @@
     "volumeKey": "volume",
     "symbolLetter": "lowercase",
     "symbolDelimiter": "_"
+  },
+  "Zaif": {
+    "exchangeClass": "ZaifExchange",
+    "baseUrl": "https://api.zaif.jp/api/1",
+    "marketPath": "/currency_pairs/all",    
+    "tickerPath": "/ticker/",
+    "lastKey": "last",
+    "bidKey": "bid",
+    "askKey": "ask",
+    "volumeKey": "volume",
+    "symbolLetter": "lowercase",
+    "symbolDelimiter": "_"
   }
 }
