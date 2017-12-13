@@ -2,8 +2,9 @@
   "bitFlyer": {
     "exchangeClass": "BitFlyerExchange",
     "baseUrl": "https://api.bitflyer.jp/v1",
-    "marketPath": "/getmarkets",    
+    "marketPath": "/getmarkets",
     "tickerPath": "/getticker?product_code=",
+    "volumePath": "",
     "lastKey": "ltp",
     "bidKey": "best_bid",
     "askKey": "best_ask",
@@ -11,11 +12,25 @@
     "symbolLetter": "uppercase",
     "symbolDelimiter": "_"
   },
+  "Bittrex": {
+    "exchangeClass": "BittrexExchange",
+    "baseUrl": "https://bittrex.com/api/v1.1",
+    "marketPath": "/public/getmarkets",
+    "tickerPath": "/public/getticker?market=",
+    "volumePath": "/public/getmarketsummary?market=",
+    "lastKey": "Last",
+    "bidKey": "Bid",
+    "askKey": "Ask",
+    "volumeKey": "Volume",
+    "symbolLetter": "uppercase",
+    "symbolDelimiter": "-"
+  },
   "Coincheck": {
     "exchangeClass": "CoincheckExchange",
     "baseUrl": "https://coincheck.com",
-    "marketPath": "",    
+    "marketPath": "",
     "tickerPath": "/api/ticker",
+    "volumePath": "",
     "lastKey": "last",
     "bidKey": "bid",
     "askKey": "ask",
@@ -26,8 +41,9 @@
   "Zaif": {
     "exchangeClass": "ZaifExchange",
     "baseUrl": "https://api.zaif.jp/api/1",
-    "marketPath": "/currency_pairs/all",    
+    "marketPath": "/currency_pairs/all",
     "tickerPath": "/ticker/",
+    "volumePath": "",
     "lastKey": "last",
     "bidKey": "bid",
     "askKey": "ask",

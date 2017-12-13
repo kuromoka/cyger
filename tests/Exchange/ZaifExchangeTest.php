@@ -108,7 +108,7 @@ class ZaifExchangeTest extends \PHPUnit_Framework_TestCase
                 $this->conf['Zaif']['lastKey'] => 0.0001,
             ],
         ];
-        $actual = $exchange->parseResult($pairs, 'lastKey');
+        $actual = $exchange->parseResult($pairs, BaseExchange::LAST_KEY);
 
         $this->assertEquals($expected, $actual);
     }
@@ -134,7 +134,7 @@ class ZaifExchangeTest extends \PHPUnit_Framework_TestCase
                 'lastPrice' => 0.0001,
             ],
         ];
-        $actual = $exchange->parseResult($pairs, 'lastKey');
+        $actual = $exchange->parseResult($pairs, BaseExchange::LAST_KEY);
 
         $this->assertEquals($expected, $actual);
     }

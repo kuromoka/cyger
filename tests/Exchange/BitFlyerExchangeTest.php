@@ -108,7 +108,7 @@ class BitFlyerExchangeTest extends \PHPUnit_Framework_TestCase
                 $this->conf['bitFlyer']['lastKey'] => 0.20,
             ],
         ];
-        $actual = $exchange->parseResult($pairs, 'lastKey');
+        $actual = $exchange->parseResult($pairs, BaseExchange::LAST_KEY);
 
         $this->assertEquals($expected, $actual);
     }
@@ -134,7 +134,7 @@ class BitFlyerExchangeTest extends \PHPUnit_Framework_TestCase
                 'last' => 0.20,
             ],
         ];
-        $actual = $exchange->parseResult($pairs, 'lastKey');
+        $actual = $exchange->parseResult($pairs, BaseExchange::LAST_KEY);
 
         $this->assertEquals($expected, $actual);
     }

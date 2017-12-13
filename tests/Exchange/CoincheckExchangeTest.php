@@ -74,7 +74,7 @@ class CoincheckExchangeTest extends \PHPUnit_Framework_TestCase
                 $this->conf['Coincheck']['lastKey'] => 1000000,
             ],
         ];
-        $actual = $exchange->parseResult($pairs, 'lastKey');
+        $actual = $exchange->parseResult($pairs, BaseExchange::LAST_KEY);
 
         $this->assertEquals($expected, $actual);
     }
@@ -92,7 +92,7 @@ class CoincheckExchangeTest extends \PHPUnit_Framework_TestCase
                 'lastPrice' => 1000000,
             ],
         ];
-        $actual = $exchange->parseResult($pairs, 'lastKey');
+        $actual = $exchange->parseResult($pairs, BaseExchange::LAST_KEY);
 
         $this->assertEquals($expected, $actual);
     }
