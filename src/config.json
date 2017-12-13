@@ -1,9 +1,9 @@
 {
   "bitFlyer": {
     "exchangeClass": "BitFlyerExchange",
-    "baseUrl": "https://api.bitflyer.jp/v1/",
-    "marketPath": "getmarkets",    
-    "tickerPath": "getticker?product_code=",
+    "baseUrl": "https://api.bitflyer.jp/v1",
+    "marketPath": "/getmarkets",    
+    "tickerPath": "/getticker?product_code=",
     "lastKey": "ltp",
     "bidKey": "best_bid",
     "askKey": "best_ask",
@@ -13,7 +13,7 @@
   },
   "Coincheck": {
     "exchangeClass": "CoincheckExchange",
-    "baseUrl": "https://coincheck.com/",
+    "baseUrl": "https://coincheck.com",
     "marketPath": "",    
     "tickerPath": "/api/ticker",
     "lastKey": "last",

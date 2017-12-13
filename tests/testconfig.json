@@ -1,9 +1,9 @@
 {
   "FooExchange": {
     "exchangeClass": "FooExchange",
-    "baseUrl": "http://example.com/foo/",
-    "marketPath": "getmarkets",        
-    "tickerPath": "ticker?pair=",
+    "baseUrl": "http://example.com/foo",
+    "marketPath": "/getmarkets",        
+    "tickerPath": "/ticker?pair=",
     "lastKey": "last",
     "bidKey": "bid",
     "askKey": "ask",
@@ -13,9 +13,9 @@
   },
   "BarExchange": {
     "exchangeClass": "BarExchange",
-    "baseUrl": "http://example.com/bar/",
-    "marketPath": "getmarkets",        
-    "requestTickerPath": "ticker?pair=",  
+    "baseUrl": "http://example.com/bar",
+    "marketPath": "/getmarkets",        
+    "requestTickerPath": "/ticker?pair=",  
     "lastKey": "last",
     "bidKey": "bid",
     "askKey": "ask",
@@ -25,9 +25,9 @@
   },
   "BazExchange": {
     "exchangeClass": "BazExchange",
-    "baseUrl": "http://example.com/baz/",
-    "marketPath": "getmarkets",        
-    "requestTickerPath": "ticker?pair=",    
+    "baseUrl": "http://example.com/baz",
+    "marketPath": "/getmarkets",        
+    "requestTickerPath": "/ticker?pair=",    
     "lastKey": "last",
     "bidKey": "bid",
     "askKey": "ask",
