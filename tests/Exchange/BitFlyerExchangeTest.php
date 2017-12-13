@@ -11,9 +11,13 @@ use Cyptalt\Exchange\BitFlyerExchange;
  */
 class BitFlyerExchangeTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var array $conf config.json file content. */
+    /**
+     * @var array $conf config.json file content.
+     */
     private $conf;
-    /** @var array $testConf testconfig.json file content. */
+    /**
+     * @var array $testConf testconfig.json file content.
+     */
     private $testConf;
 
     protected function setUp()
@@ -68,13 +72,13 @@ class BitFlyerExchangeTest extends \PHPUnit_Framework_TestCase
     public function testGetUrl()
     {
         $expected = [
-            'BTC_ETH' => $this->conf['bitFlyer']['baseUrl'] . $this->conf['bitFlyer']['tickerPath'] . 'ETH_BTC',            
+            'BTC_ETH' => $this->conf['bitFlyer']['baseUrl'] . $this->conf['bitFlyer']['tickerPath'] . 'ETH_BTC',
         ];
 
         $client = new Client(['http_errors' => false]);
         $exchange = new BitFlyerExchange($this->conf['bitFlyer'], $client);
         $pairs = [
-            'BTC_ETH' => 'ETH_BTC',            
+            'BTC_ETH' => 'ETH_BTC',
         ];
         $actual = $exchange->getUrl($pairs);
 

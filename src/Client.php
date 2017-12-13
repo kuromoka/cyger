@@ -14,18 +14,26 @@ class Client
     const LAST_KEY = 'lastKey';
     const BID_KEY = 'bidKey';
     const ASK_KEY = 'askKey';
-    const VOLUME_KEY = 'volumeKey';    
+    const VOLUME_KEY = 'volumeKey';
 
-    /** @var array $conf config.json file content. */
+    /**
+     * @var array $conf config.json file content.
+     */
     private $conf;
 
-    /** @var array $container Pimple config. */
+    /**
+     * @var array $container Pimple config.
+     */
     private $container = [];
 
-    /** @var ExchangeInterface[] $exchanges exchange config. */  
+    /**
+     * @var ExchangeInterface[] $exchanges exchange config.
+     */
     private $exchanges = [];
 
-    /** @var string[] $pairs pair config. */  
+    /**
+     * @var string[] $pairs pair config.
+     */
     private $pairs = [];
 
     /**
@@ -44,7 +52,7 @@ class Client
             $exchangeConf = $containerKey . 'Conf';
             $exchangeClass = $containerKey . 'Class';
             
-            $container[$exchangeConf] = $this->conf[$containerKey];                               
+            $container[$exchangeConf] = $this->conf[$containerKey];
             $container[$exchangeClass] = 'Cyptalt\\Exchange\\' . $this->conf[$containerKey]["exchangeClass"];
             $container[$containerKey] = function ($c) use ($client, $exchangeConf, $exchangeClass) {
                 return new $c[$exchangeClass]($c[$exchangeConf], $client);
@@ -55,8 +63,8 @@ class Client
 
     /**
      * Set exchange config.
-     * 
-     * @param string $exchange
+     *
+     * @param  string $exchange
      * @return Client
      */
     public function setExchange($exchange)
@@ -65,8 +73,8 @@ class Client
         foreach ($containerKeys as $containerKey) {
             if ($exchange === $containerKey) {
                 $this->exchanges[$containerKey] = $this->container[$containerKey];
-            } else if (strtolower($exchange) === strtolower($containerKey)) {
-                $this->exchanges[$exchange] = $this->container[$containerKey];                
+            } elseif (strtolower($exchange) === strtolower($containerKey)) {
+                $this->exchanges[$exchange] = $this->container[$containerKey];
             }
         }
 
@@ -75,19 +83,19 @@ class Client
 
     /**
      * Set pair config.
-     * 
-     * @param string $pair
+     *
+     * @param  string $pair
      * @return Client
      */
     public function setPair($pair)
     {
         $this->pairs[$pair] = $pair;
-        return $this;        
+        return $this;
     }
 
     /**
      * Get last price.
-     * 
+     *
      * @return array
      */
     public function getLastPrice()
@@ -98,7 +106,7 @@ class Client
 
     /**
      * Get bid price.
-     * 
+     *
      * @return array
      */
     public function getBidPrice()
@@ -109,7 +117,7 @@ class Client
 
     /**
      * Get ask price.
-     * 
+     *
      * @return array
      */
     public function getAskPrice()
@@ -120,7 +128,7 @@ class Client
 
     /**
      * Get volume.
-     * 
+     *
      * @return array
      */
     public function getVolume()
@@ -130,18 +138,18 @@ class Client
     }
 
      /**
-     * Get value. $jsonKey is constant value.
-     * 
-     * @param  array $jsonKey
-     * @return array
-     */
+      * Get value. $jsonKey is constant value.
+      *
+      * @param  array $jsonKey
+      * @return array
+      */
     private function getValue($jsonKey)
     {
         $results = [];
 
         if (count($this->pairs) === 0) {
-            throw new NotSetException('Not set pairs. You should call to "$client->setPair($pair)".');        
-        } else if (count($this->exchanges) === 0) {
+            throw new NotSetException('Not set pairs. You should call to "$client->setPair($pair)".');
+        } elseif (count($this->exchanges) === 0) {
             $containerKeys = array_keys($this->conf);
             foreach ($containerKeys as $containerKey) {
                 $this->exchanges[$containerKey] = $this->container[$containerKey];

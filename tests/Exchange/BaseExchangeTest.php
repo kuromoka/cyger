@@ -16,7 +16,9 @@ use Cyptalt\Exception\CouldNotConnectException;
  */
 class BaseExchangeTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var array $testConf testconfig.json file content. */
+    /**
+     * @var array $testConf testconfig.json file content.
+     */
     private $testConf;
 
     protected function setUp()
@@ -42,47 +44,47 @@ class BaseExchangeTest extends \PHPUnit_Framework_TestCase
 
         $r1 = new Response(200, [], '[{ "pair": "JPY_BTC" }, { "pair": "BTC_ETH" }, { "pair": "BTC_BCH" }]');
         $mock = new MockHandler([$r1]);
-        $handler = HandlerStack::create($mock);      
+        $handler = HandlerStack::create($mock);
         $client = new Client(['handler' => $handler, 'http_errors' => false]);
         $exchangeMock = $this->getMockForAbstractClass(
-            BaseExchange::class, 
+            BaseExchange::class,
             array($this->testConf['FooExchange'], $client)
         );
         $actual = $exchangeMock->fetchMarketData();
-        $this->assertEquals($expected, $actual);        
+        $this->assertEquals($expected, $actual);
     }
 
     public function testFetchMarketDataWithUnConnectableUrl()
     {
         // TODO
         // Until I can know how to create RequestException Mock, I will defer writing this test code.
-        $this->assertEquals(true, true);  
+        $this->assertEquals(true, true);
     }
     
     public function testNormalizePairsWithPairsToRequireNormalization()
     {
         $expected = [
-            'btc_jpy' => 'JPY_BTC',            
+            'btc_jpy' => 'JPY_BTC',
             'btc-eth' => 'BTC_ETH',
             'btc/bch' => 'BTC_BCH',
-            'BTC-XRP' => 'BTC_XRP',                                         
+            'BTC-XRP' => 'BTC_XRP',
             'BTC/BTG' => 'BTC_BTG',
         ];
 
         $client = new Client(['http_errors' => false]);
         $exchangeMock = $this->getMockForAbstractClass(
-            BaseExchange::class, 
+            BaseExchange::class,
             array($this->testConf['FooExchange'], $client)
         );
         $pairs = [
-            'btc_jpy' => 'btc_jpy',            
+            'btc_jpy' => 'btc_jpy',
             'btc-eth' => 'btc-eth',
             'btc/bch' => 'btc/bch',
             'BTC-XRP' => 'BTC-XRP',
             'BTC/BTG' => 'BTC/BTG',
         ];
         $validPairs = [
-            'JPY_BTC',   
+            'JPY_BTC',
             'BTC_ETH',
             'BTC_BCH',
             'BTC_XRP',
@@ -101,7 +103,7 @@ class BaseExchangeTest extends \PHPUnit_Framework_TestCase
 
         $client = new Client(['http_errors' => false]);
         $exchangeMock = $this->getMockForAbstractClass(
-            BaseExchange::class, 
+            BaseExchange::class,
             array($this->testConf['FooExchange'], $client)
         );
         $pairs = [
@@ -123,7 +125,7 @@ class BaseExchangeTest extends \PHPUnit_Framework_TestCase
 
         $client = new Client(['http_errors' => false]);
         $exchangeMock = $this->getMockForAbstractClass(
-            BaseExchange::class, 
+            BaseExchange::class,
             array($this->testConf['FooExchange'], $client)
         );
         $pairs = [
@@ -134,7 +136,7 @@ class BaseExchangeTest extends \PHPUnit_Framework_TestCase
         ];
         $actual = $exchangeMock->normalizePairs($pairs, $validPairs);
 
-        $this->assertEquals($expected, $actual);        
+        $this->assertEquals($expected, $actual);
     }
 
     public function testSendRequestWithConnectableUrl()
@@ -142,7 +144,7 @@ class BaseExchangeTest extends \PHPUnit_Framework_TestCase
         $expected = [
             'BTC_JPY' => [
                 'last' => 1000000,
-            ],            
+            ],
             'BTC_ETH' => [
                 'last' => 0.05,
             ],
@@ -155,26 +157,26 @@ class BaseExchangeTest extends \PHPUnit_Framework_TestCase
         $r2 = new Response(200, [], '{ "last": 0.05 }');
         $r3 = new Response(200, [], '{ "last": 0.20 }');
         $mock = new MockHandler([$r1, $r2, $r3]);
-        $handler = HandlerStack::create($mock);      
+        $handler = HandlerStack::create($mock);
         $client = new Client(['handler' => $handler, 'http_errors' => false]);
         $exchangeMock = $this->getMockForAbstractClass(
-            BaseExchange::class, 
+            BaseExchange::class,
             array($this->testConf['FooExchange'], $client)
         );
         $pairs = [
             'BTC_JPY' => $this->testConf['FooExchange']['baseUrl'] . $this->testConf['FooExchange']['tickerPath'] . 'BTC_JPY',
             'BTC_ETH' => $this->testConf['FooExchange']['baseUrl'] . $this->testConf['FooExchange']['tickerPath'] . 'BTC_ETH',
-            'BTC_BCH' => $this->testConf['FooExchange']['baseUrl'] . $this->testConf['FooExchange']['tickerPath'] . 'BTC_BCH',            
+            'BTC_BCH' => $this->testConf['FooExchange']['baseUrl'] . $this->testConf['FooExchange']['tickerPath'] . 'BTC_BCH',
         ];
         $actual = $exchangeMock->sendRequest($pairs);
 
-        $this->assertEquals($expected, $actual);        
+        $this->assertEquals($expected, $actual);
     }
 
     public function testSendRequestWithUnConnectableUrl()
     {
         // TODO
         // Until I can know how to create RequestException Mock, I will defer writing this test code.
-        $this->assertEquals(true, true);  
+        $this->assertEquals(true, true);
     }
 }

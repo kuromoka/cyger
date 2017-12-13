@@ -11,9 +11,13 @@ use Cyptalt\Exchange\ZaifExchange;
  */
 class ZaifExchangeTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var array $conf config.json file content. */
+    /**
+     * @var array $conf config.json file content.
+     */
     private $conf;
-    /** @var array $testConf testconfig.json file content. */
+    /**
+     * @var array $testConf testconfig.json file content.
+     */
     private $testConf;
 
     protected function setUp()
@@ -68,13 +72,13 @@ class ZaifExchangeTest extends \PHPUnit_Framework_TestCase
     public function testGetUrl()
     {
         $expected = [
-            'BTC_JPY' => $this->conf['Zaif']['baseUrl'] . $this->conf['Zaif']['tickerPath'] . 'btc_jpy',            
+            'BTC_JPY' => $this->conf['Zaif']['baseUrl'] . $this->conf['Zaif']['tickerPath'] . 'btc_jpy',
         ];
 
         $client = new Client(['http_errors' => false]);
         $exchange = new ZaifExchange($this->conf['Zaif'], $client);
         $pairs = [
-            'BTC_JPY' => 'btc_jpy',            
+            'BTC_JPY' => 'btc_jpy',
         ];
         $actual = $exchange->getUrl($pairs);
 

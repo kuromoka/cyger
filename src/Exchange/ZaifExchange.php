@@ -33,7 +33,7 @@ class ZaifExchange extends BaseExchange
             }
         }
 
-        return $pairs;        
+        return $pairs;
     }
 
     /**
@@ -49,6 +49,6 @@ class ZaifExchange extends BaseExchange
             }
         }
         
-        return $pairs;        
+        return $pairs;
     }
 }

@@ -33,7 +33,7 @@ class BitFlyerExchange extends BaseExchange
             }
         }
 
-        return $pairs;        
+        return $pairs;
     }
 
     /**
@@ -49,6 +49,6 @@ class BitFlyerExchange extends BaseExchange
             }
         }
         
-        return $pairs;        
+        return $pairs;
     }
 }

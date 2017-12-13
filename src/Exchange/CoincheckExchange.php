@@ -29,7 +29,7 @@ class CoincheckExchange extends BaseExchange
             }
         }
 
-        return $pairs;        
+        return $pairs;
     }
 
     /**
@@ -45,6 +45,6 @@ class CoincheckExchange extends BaseExchange
             }
         }
         
-        return $pairs;        
+        return $pairs;
     }
 }

@@ -12,9 +12,13 @@ use Cyptalt\Exception\NotSetException;
  */
 class ClientTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var array $conf config.json file content. */
+    /**
+     * @var array $conf config.json file content.
+     */
     private $conf;
-    /** @var array $testConf testconfig.json file content. */
+    /**
+     * @var array $testConf testconfig.json file content.
+     */
     private $testConf;
 
     protected function setUp()
@@ -32,34 +36,34 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $guzzleClient = new \GuzzleHttp\Client(['http_errors' => false]);
         $exchangeConf1 = $this->conf['bitFlyer'];
-        $exchangeClass1 = 'Cyptalt\\Exchange\\' . $this->conf['bitFlyer']["exchangeClass"];      
+        $exchangeClass1 = 'Cyptalt\\Exchange\\' . $this->conf['bitFlyer']["exchangeClass"];
         $expected = [
             'BitFlyer' => new $exchangeClass1($exchangeConf1, $guzzleClient),
         ];
 
-        $client = new Client();        
+        $client = new Client();
         $client->setExchange('BitFlyer');
         $clientProps = $this->getClientProps($client);
         $actual = $clientProps['exchanges'];
 
-        $this->assertEquals($expected, $actual);        
+        $this->assertEquals($expected, $actual);
     }
 
     public function testSetExchangeWithCorrectName()
     {
         $guzzleClient = new \GuzzleHttp\Client(['http_errors' => false]);
         $exchangeConf1 = $this->conf['bitFlyer'];
-        $exchangeClass1 = 'Cyptalt\\Exchange\\' . $this->conf['bitFlyer']["exchangeClass"];      
+        $exchangeClass1 = 'Cyptalt\\Exchange\\' . $this->conf['bitFlyer']["exchangeClass"];
         $expected = [
             'bitFlyer' => new $exchangeClass1($exchangeConf1, $guzzleClient),
         ];
 
-        $client = new Client();        
+        $client = new Client();
         $client->setExchange('bitFlyer');
         $clientProps = $this->getClientProps($client);
         $actual = $clientProps['exchanges'];
 
-        $this->assertEquals($expected, $actual);        
+        $this->assertEquals($expected, $actual);
     }
 
     public function testSetPair()
@@ -75,7 +79,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $clientProps = $this->getClientProps($client);
         $actual = $clientProps['pairs'];
 
-        $this->assertEquals($expected, $actual); 
+        $this->assertEquals($expected, $actual);
     }
 
     public function testGetLastPriceWithoutSettingPairs()
@@ -92,7 +96,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testGetLastPriceWithRealRequestToAllExchangesExceptSomeExchanges()
     {
         $exceptExchanges = ['Coincheck'];
-        $expected = [];      
+        $expected = [];
         $containerKeys = array_keys($this->conf);
         foreach ($containerKeys as $containerKey) {
             if (!in_array($containerKey, $exceptExchanges)) {
@@ -103,10 +107,10 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         }
 
         $client = new Client();
-        $results = $client->setPair('BTC_ETH')->getLastPrice();        
+        $results = $client->setPair('BTC_ETH')->getLastPrice();
         if (!empty($results)) {
             foreach ($results as $key => $result) {
-                if (!in_array($key, $exceptExchanges)) {                    
+                if (!in_array($key, $exceptExchanges)) {
                     if (isset($result['BTC_ETH']) && gettype($result['BTC_ETH']) === 'string') {
                         $results[$key]['BTC_ETH'] = 'string';
                     }
@@ -115,9 +119,9 @@ class ClientTest extends \PHPUnit_Framework_TestCase
                 }
             }
         }
-        $actual = $results;        
+        $actual = $results;
 
-        $this->assertEquals($expected, $actual); 
+        $this->assertEquals($expected, $actual);
     }
 
     public function testGetLastPriceWithRealRequestToCoincheckExchange()
@@ -129,26 +133,26 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         ];
 
         $client = new Client();
-        $result = $client->setExchange('Coincheck')->setPair('btc_jpy')->getLastPrice();        
+        $result = $client->setExchange('Coincheck')->setPair('btc_jpy')->getLastPrice();
         if (!empty($result)) {
             if (isset($result['Coincheck']['btc_jpy']) && gettype($result['Coincheck']['btc_jpy']) === 'string') {
                 $result['Coincheck']['btc_jpy'] = 'string';
             }
         }
-        $actual = $result; 
+        $actual = $result;
 
-        $this->assertEquals($expected, $actual); 
+        $this->assertEquals($expected, $actual);
     }
 
     /**
      * Get Client Class Properties.
-     * 
-     * @param Client $client
+     *
+     * @param  Client $client
      * @return array
      */
     private function getClientProps($client)
     {
-        $clientProps = [];        
+        $clientProps = [];
         $reflClient = new \ReflectionClass($client);
         $props = $reflClient->getProperties();
         foreach ($props as $prop) {

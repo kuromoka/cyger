@@ -11,9 +11,13 @@ use Cyptalt\Exchange\CoincheckExchange;
  */
 class CoincheckExchangeTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var array $conf config.json file content. */
+    /**
+     * @var array $conf config.json file content.
+     */
     private $conf;
-    /** @var array $testConf testconfig.json file content. */
+    /**
+     * @var array $testConf testconfig.json file content.
+     */
     private $testConf;
 
     protected function setUp()
@@ -42,13 +46,13 @@ class CoincheckExchangeTest extends \PHPUnit_Framework_TestCase
     public function testGetUrl()
     {
         $expected = [
-            'btc_jpy' => $this->conf['Coincheck']['baseUrl'] . $this->conf['Coincheck']['tickerPath'],            
+            'btc_jpy' => $this->conf['Coincheck']['baseUrl'] . $this->conf['Coincheck']['tickerPath'],
         ];
 
         $client = new Client(['http_errors' => false]);
         $exchange = new CoincheckExchange($this->conf['Coincheck'], $client);
         $pairs = [
-            'btc_jpy' => 'btc_jpy',            
+            'btc_jpy' => 'btc_jpy',
         ];
         $actual = $exchange->getUrl($pairs);
 

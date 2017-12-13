@@ -15,17 +15,21 @@ abstract class BaseExchange
     const UPPER_CASE = 'uppercase';
     const LOWER_CASE = 'lowercase';
 
-    /** @var array $conf config.json file content of Child exchange. */
+    /**
+     * @var array $conf config.json file content of Child exchange.
+     */
     protected $conf;
 
-    /** @var array $client GuzzleHttp\Client Object. */
+    /**
+     * @var array $client GuzzleHttp\Client Object.
+     */
     protected $client;
 
     /**
      * Set config.json file content of Child exchange.
-     * 
-     * @param  array             $conf
-     * @param  GuzzleHttp\Client $client
+     *
+     * @param array             $conf
+     * @param GuzzleHttp\Client $client
      */
     public function __construct($conf, $client)
     {
@@ -35,29 +39,29 @@ abstract class BaseExchange
 
     /**
      * Get valid pairs.
-     * 
-     * @param  array $pairs
+     *
+     * @param array $pairs
      */
     abstract public function getValidPairs($marketResults);
 
     /**
      * Get API Url from pair config.
-     * 
-     * @param  array $pairs
+     *
+     * @param array $pairs
      */
     abstract public function getUrl($pairs);
     
     /**
      * Get value from API result.
-     * 
-     * @param  array  $pairs
-     * @param  string $jsonKey
+     *
+     * @param array  $pairs
+     * @param string $jsonKey
      */
     abstract public function parseResult($pairs, $jsonKey);
 
     /**
      * Fetch available market data from API.
-     * 
+     *
      * @return array
      */
     public function fetchMarketData()
@@ -69,7 +73,7 @@ abstract class BaseExchange
                 $response = $this->client->request('GET', $marketUrl);
                 $marketResults = json_decode($response->getBody()->getContents(), true);
             } catch (Exception $e) {
-                throw new CouldNotConnectException($e->getMessage());      
+                throw new CouldNotConnectException($e->getMessage());
             }
         }
 
@@ -78,7 +82,7 @@ abstract class BaseExchange
 
     /**
      * According to API, normalize pair config.
-     * 
+     *
      * @param  array $pairs
      * @param  array $validPairs
      * @return array
@@ -89,11 +93,11 @@ abstract class BaseExchange
         foreach ($pairs as $key => $pair) {
             if ($this->conf['symbolLetter'] === self::UPPER_CASE) {
                 $pairs[$key] = strtoupper($pair);
-            } else if ($this->conf['symbolLetter'] === self::LOWER_CASE) {
-                $pairs[$key] = strtolower($pair);                
+            } elseif ($this->conf['symbolLetter'] === self::LOWER_CASE) {
+                $pairs[$key] = strtolower($pair);
             }
 
-            if(strpos($pair, $this->conf['symbolDelimiter']) === false) {
+            if (strpos($pair, $this->conf['symbolDelimiter']) === false) {
                 $pairs[$key] = str_replace($searchSymbolDelimiters, $this->conf['symbolDelimiter'], $pairs[$key]);
             }
 
@@ -115,7 +119,7 @@ abstract class BaseExchange
 
     /**
      * Send request to API.
-     * 
+     *
      * @param  array $pairs
      * @return array
      */
@@ -128,15 +132,19 @@ abstract class BaseExchange
                 }
             }
         };
-        $pool = new Pool($this->client, $requests($pairs), [
-            'concurrency' => 5,
-            'fulfilled' => function ($response, $index) use (&$pairs) {
-                $pairs[$index] = json_decode($response->getBody()->getContents(), true);
-            },
-            'rejected' => function ($reason, $index) {
-                throw new CouldNotConnectException($reason->getMessage());        
-            },
-        ]);
+        $pool = new Pool(
+            $this->client,
+            $requests($pairs),
+            [
+                'concurrency' => 5,
+                'fulfilled' => function ($response, $index) use (&$pairs) {
+                    $pairs[$index] = json_decode($response->getBody()->getContents(), true);
+                },
+                'rejected' => function ($reason, $index) {
+                    throw new CouldNotConnectException($reason->getMessage());
+                },
+            ]
+        );
         $promise = $pool->promise();
         $promise->wait();
 
