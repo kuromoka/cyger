@@ -160,7 +160,7 @@ class Client
             $marketResults = $exchange->fetchMarketData();
             $validPairs = $exchange->getValidPairs($marketResults);
             $pairs = $exchange->normalizePairs($this->pairs, $validPairs);
-            $pairs = $exchange->getUrl($pairs);
+            $pairs = $exchange->getUrl($pairs, $jsonKey);
             $pairs = $exchange->sendRequest($pairs);
             $results[$key] = $exchange->parseResult($pairs, $jsonKey);
         }

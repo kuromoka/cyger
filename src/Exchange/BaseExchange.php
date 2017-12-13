@@ -12,6 +12,10 @@ use Cyptalt\Exception\CouldNotConnectException;
  */
 abstract class BaseExchange
 {
+    const LAST_KEY = 'lastKey';
+    const BID_KEY = 'bidKey';
+    const ASK_KEY = 'askKey';
+    const VOLUME_KEY = 'volumeKey';
     const UPPER_CASE = 'uppercase';
     const LOWER_CASE = 'lowercase';
 
@@ -48,8 +52,9 @@ abstract class BaseExchange
      * Get API Url from pair config.
      *
      * @param array $pairs
+     * @param string $jsonKey
      */
-    abstract public function getUrl($pairs);
+    abstract public function getUrl($pairs, $jsonKey);
     
     /**
      * Get value from API result.

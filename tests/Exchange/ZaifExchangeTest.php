@@ -4,6 +4,7 @@ namespace Cyptalt\Exchange;
 
 use GuzzleHttp\Client;
 use Noodlehaus\Config;
+use Cyptalt\Exchange\BaseExchange;
 use Cyptalt\Exchange\ZaifExchange;
 
 /**
@@ -80,7 +81,8 @@ class ZaifExchangeTest extends \PHPUnit_Framework_TestCase
         $pairs = [
             'BTC_JPY' => 'btc_jpy',
         ];
-        $actual = $exchange->getUrl($pairs);
+        $jsonKey = BaseExchange::LAST_KEY;
+        $actual = $exchange->getUrl($pairs, $jsonKey);
 
         $this->assertEquals($expected, $actual);
     }

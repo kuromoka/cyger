@@ -4,6 +4,7 @@ namespace Cyptalt\Exchange;
 
 use GuzzleHttp\Client;
 use Noodlehaus\Config;
+use Cyptalt\Exchange\BaseExchange;
 use Cyptalt\Exchange\CoincheckExchange;
 
 /**
@@ -54,7 +55,8 @@ class CoincheckExchangeTest extends \PHPUnit_Framework_TestCase
         $pairs = [
             'btc_jpy' => 'btc_jpy',
         ];
-        $actual = $exchange->getUrl($pairs);
+        $jsonKey = BaseExchange::LAST_KEY;
+        $actual = $exchange->getUrl($pairs, $jsonKey);
 
         $this->assertEquals($expected, $actual);
     }
