@@ -39,7 +39,7 @@ class BitFlyerExchange extends BaseExchange
     /**
      * {@inheritDoc}
      */
-    public function parseResult($pairs, $jsonKey)
+    public function parseResult($pairs, $jsonKey, $marketResults = null)
     {
         foreach ($pairs as $key => $pair) {
             if (isset($pair[$this->conf[$jsonKey]])) {

@@ -25,7 +25,7 @@ class ZaifExchange extends BaseExchange
     /**
      * {@inheritDoc}
      */
-    public function getUrl($pairs, $jsonKey)
+    public function getUrl($pairs, $jsonKey, $marketResults = null)
     {
         foreach ($pairs as $key => $pair) {
             if (!is_null($pair)) {

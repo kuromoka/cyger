@@ -30,6 +30,11 @@ abstract class BaseExchange
     protected $client;
 
     /**
+     * @var boolean $tickerFlag True is standing for not empty tickerPath.
+     */
+    public $tickerFlag;
+
+    /**
      * Set config.json file content of Child exchange.
      *
      * @param array             $conf
@@ -39,6 +44,11 @@ abstract class BaseExchange
     {
         $this->conf = $conf;
         $this->client = $client;
+        if (!empty($this->conf['tickerPath'])) {
+            $this->tickerFlag = true;
+        } else {
+            $this->tickerFlag = false;
+        }
     }
 
     /**
@@ -61,8 +71,9 @@ abstract class BaseExchange
      *
      * @param array  $pairs
      * @param string $jsonKey
+     * @param array  $marketResults
      */
-    abstract public function parseResult($pairs, $jsonKey);
+    abstract public function parseResult($pairs, $jsonKey, $marketResults = null);
 
     /**
      * Fetch available market data from API.
