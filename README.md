@@ -5,6 +5,18 @@
 Cyptalt is a PHP library to get cryptocurrency price from various exchange APIs.
 - It is possible to resolve different specifications for each api as soon as possible.
 - It can get last price, bid price, ask price and volume.
+- [Supporting exchanges](#supporting_exchanges)
+
+## Install
+
+```
+$ composer require kuromoka/cyptalt
+```
+
+## Requirement
+
+- PHP >= 5.5
+- [Composer](https://getcomposer.org/)
 
 ## Usage
 
@@ -20,7 +32,7 @@ $result = $client->setExchange('Poloniex')->setPair('BTC_ETH')->getLastPrice();
 echo $result['Poloniex']['BTC_ETH'];    // 0.04549105
 ```
 
-The secound example code below shows getting last price of BTC_ETH from all supporting exchange. It is possible not to set exchange, but it is necessary to set pairs.  
+The secound example code below shows getting last price of BTC_ETH from all [supporting exchanges](#supporting_exchanges). It is possible not to set exchange, but it is necessary to set pairs.  
 if exchanges don't support pairs, returning NULL.
 
 ```PHP
@@ -58,16 +70,14 @@ When you want to get other than last price, please replace getLastPrice() to met
 - getAskPrice()
 - getVolume()
 
-## Install
+## <a name ="supporting_exchanges"></a>Supporting exchanges
 
-```
-$ composer require kuromoka/cyptalt
-```
-
-## Requirement
-
-- PHP >= 5.5
-- [Composer](https://getcomposer.org/)
+I am going to add more exchanges in the future.
+- [bitFlyer](https://bitflyer.jp/)
+- [Bittrex](https://bittrex.com/)
+- [Coincheck](https://coincheck.com/)
+- [Poloniex](https://poloniex.com/)
+- [Zaif](https://zaif.jp/)
 
 ## Author
 
