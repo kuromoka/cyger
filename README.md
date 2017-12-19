@@ -10,7 +10,7 @@ Cyptalt is a PHP library to get cryptocurrency price from various exchange APIs.
 
 The first example code below shows getting last price of BTC_ETH from Poloniex.
 
-```
+```PHP
 require 'vendor/autoload.php';
 
 use Cyptalt\Client;
@@ -23,7 +23,7 @@ echo $result['Poloniex']['BTC_ETH'];    // 0.04549105
 The secound example code below shows getting last price of BTC_ETH from all supporting exchange.  
 if exchanges don't support pairs, returning NULL.
 
-```
+```PHP
 require 'vendor/autoload.php';
 
 use Cyptalt\Client;
