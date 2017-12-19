@@ -38,6 +38,19 @@
     "symbolLetter": "lowercase",
     "symbolDelimiter": "_"
   },
+  "Poloniex": {
+    "exchangeClass": "PoloniexExchange",
+    "baseUrl": "https://poloniex.com",
+    "marketPath": "/public?command=returnTicker",
+    "tickerPath": "",
+    "volumePath": "",
+    "lastKey": "last",
+    "bidKey": "highestBid",
+    "askKey": "lowestAsk",
+    "volumeKey": "baseVolume",
+    "symbolLetter": "uppercase",
+    "symbolDelimiter": "_"
+  },
   "Zaif": {
     "exchangeClass": "ZaifExchange",
     "baseUrl": "https://api.zaif.jp/api/1",

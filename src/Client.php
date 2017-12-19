@@ -27,7 +27,7 @@ class Client
     private $container = [];
 
     /**
-     * @var ExchangeInterface[] $exchanges exchange config.
+     * @var BaseExchange[] $exchanges exchange config.
      */
     private $exchanges = [];
 
@@ -160,9 +160,13 @@ class Client
             $marketResults = $exchange->fetchMarketData();
             $validPairs = $exchange->getValidPairs($marketResults);
             $pairs = $exchange->normalizePairs($this->pairs, $validPairs);
-            $pairs = $exchange->getUrl($pairs, $jsonKey);
-            $pairs = $exchange->sendRequest($pairs);
-            $results[$key] = $exchange->parseResult($pairs, $jsonKey);
+            if ($exchange->tickerFlag) {
+                $pairs = $exchange->getUrl($pairs, $jsonKey);
+                $pairs = $exchange->sendRequest($pairs);
+                $results[$key] = $exchange->parseResult($pairs, $jsonKey);
+            } else {
+                $results[$key] = $exchange->parseResult($pairs, $jsonKey, $marketResults);
+            }
         }
 
         return $results;

@@ -109,7 +109,7 @@ class BittrexExchangeTest extends \PHPUnit_Framework_TestCase
     public function testParseResultWithValidJsonKey()
     {
         $expected = [
-            'BTC_ETH' => '0.05',
+            'BTC-ETH' => '0.05',
             'BTC-BCC' => '0.20',
             'BTC-XRP' => '0.00002',
         ];
@@ -117,7 +117,7 @@ class BittrexExchangeTest extends \PHPUnit_Framework_TestCase
         $client = new Client(['http_errors' => false]);
         $exchange = new BittrexExchange($this->conf['Bittrex'], $client);
         $pairs = [
-            'BTC_ETH' => [
+            'BTC-ETH' => [
                 'result' => [
                     $this->conf['Bittrex']['lastKey'] => 0.05,
                 ]
@@ -141,7 +141,7 @@ class BittrexExchangeTest extends \PHPUnit_Framework_TestCase
     public function testParseResultWithInvalidJsonKey()
     {
         $expected = [
-            'BTC_ETH' => null,
+            'BTC-ETH' => null,
             'BTC-BCC' => null,
             'BTC-XRP' => null,
         ];
@@ -149,7 +149,7 @@ class BittrexExchangeTest extends \PHPUnit_Framework_TestCase
         $client = new Client(['http_errors' => false]);
         $exchange = new BittrexExchange($this->conf['Bittrex'], $client);
         $pairs = [
-            'BTC_ETH' => [
+            'BTC-ETH' => [
                 'result' => [
                     'LastPrice' => 0.05,
                 ]
