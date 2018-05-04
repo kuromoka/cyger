@@ -73,6 +73,7 @@ When you want to get other than last price, please replace getLastPrice() to met
 ## <a name ="supporting_exchanges"></a>Supporting exchanges
 
 I am going to add more exchanges in the future.
+- [Binance](https://www.binance.com/)
 - [bitFlyer](https://bitflyer.jp/)
 - [Bittrex](https://bittrex.com/)
 - [Coincheck](https://coincheck.com/)
