@@ -1,10 +1,10 @@
 <?php
 
-namespace Cyptalt;
+namespace Cyger;
 
 use Noodlehaus\Config;
 use Pimple\Container;
-use Cyptalt\Exception\NotSetException;
+use Cyger\Exception\NotSetException;
 
 /**
  * Client Class
@@ -53,7 +53,7 @@ class Client
             $exchangeClass = $containerKey . 'Class';
             
             $container[$exchangeConf] = $this->conf[$containerKey];
-            $container[$exchangeClass] = 'Cyptalt\\Exchange\\' . $this->conf[$containerKey]["exchangeClass"];
+            $container[$exchangeClass] = 'Cyger\\Exchange\\' . $this->conf[$containerKey]["exchangeClass"];
             $container[$containerKey] = function ($c) use ($client, $exchangeConf, $exchangeClass) {
                 return new $c[$exchangeClass]($c[$exchangeConf], $client);
             };

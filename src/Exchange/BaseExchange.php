@@ -1,11 +1,11 @@
 <?php
 
-namespace Cyptalt\Exchange;
+namespace Cyger\Exchange;
 
 use GuzzleHttp\Pool;
 use GuzzleHttp\Psr7\Request;
-use Cyptalt\Exception;
-use Cyptalt\Exception\CouldNotConnectException;
+use Cyger\Exception;
+use Cyger\Exception\CouldNotConnectException;
 
 /**
  * BaseExchange Class

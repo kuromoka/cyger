@@ -1,6 +1,6 @@
 <?php
 
-namespace Cyptalt\Exception;
+namespace Cyger\Exception;
 
 /**
  * NotSetException Class

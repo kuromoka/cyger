@@ -1,11 +1,11 @@
 <?php
 
-namespace Cyptalt\Exchange;
+namespace Cyger\Exchange;
 
 use GuzzleHttp\Client;
 use Noodlehaus\Config;
-use Cyptalt\Exchange\BaseExchange;
-use Cyptalt\Exchange\PoloniexExchange;
+use Cyger\Exchange\BaseExchange;
+use Cyger\Exchange\PoloniexExchange;
 
 /**
  * PoloniexExchangeTest Class

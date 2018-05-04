@@ -1,8 +1,8 @@
-# cyptalt
-[![Build Status](https://travis-ci.org/kuromoka/cyptalt.svg?branch=master)](https://travis-ci.org/kuromoka/cyptalt)
-[![Coverage Status](https://coveralls.io/repos/github/kuromoka/cyptalt/badge.svg?branch=)](https://coveralls.io/github/kuromoka/cyptalt?branch=)
+# Cyger
+[![Build Status](https://travis-ci.org/kuromoka/Cyger.svg?branch=master)](https://travis-ci.org/kuromoka/Cyger)
+[![Coverage Status](https://coveralls.io/repos/github/kuromoka/Cyger/badge.svg?branch=)](https://coveralls.io/github/kuromoka/Cyger?branch=)
 
-Cyptalt is a PHP library to get cryptocurrency price from various exchange APIs.
+Cyger is a PHP library to get cryptocurrency price from various exchange APIs.
 - It is possible to resolve different specifications for each api as soon as possible.
 - It can get last price, bid price, ask price and volume.
 - [Supporting exchanges](#supporting_exchanges)
@@ -10,7 +10,7 @@ Cyptalt is a PHP library to get cryptocurrency price from various exchange APIs.
 ## Install
 
 ```
-$ composer require kuromoka/cyptalt
+$ composer require kuromoka/Cyger
 ```
 
 ## Requirement
@@ -25,7 +25,7 @@ The first example code below shows getting last price of BTC_ETH from Poloniex.
 ```PHP
 require 'vendor/autoload.php';
 
-use Cyptalt\Client;
+use Cyger\Client;
 
 $client = new Client();
 $result = $client->setExchange('Poloniex')->setPair('BTC_ETH')->getLastPrice();

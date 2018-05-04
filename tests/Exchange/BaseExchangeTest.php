@@ -1,6 +1,6 @@
 <?php
 
-namespace Cyptalt\Exchange;
+namespace Cyger\Exchange;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
@@ -8,8 +8,8 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Exception\RequestException;
 use Noodlehaus\Config;
-use Cyptalt\Exchange\BaseExchange;
-use Cyptalt\Exception\CouldNotConnectException;
+use Cyger\Exchange\BaseExchange;
+use Cyger\Exception\CouldNotConnectException;
 
 /**
  * BaseExchangeTest Class

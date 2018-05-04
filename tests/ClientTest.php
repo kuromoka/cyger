@@ -1,11 +1,11 @@
 <?php
 
-namespace Cyptalt;
+namespace Cyger;
 
 use Noodlehaus\Config;
-use Cyptalt\Client;
-use Cyptalt\Exchange;
-use Cyptalt\Exception\NotSetException;
+use Cyger\Client;
+use Cyger\Exchange;
+use Cyger\Exception\NotSetException;
 
 /**
  * ClientTest Class
@@ -36,7 +36,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $guzzleClient = new \GuzzleHttp\Client(['http_errors' => false]);
         $exchangeConf1 = $this->conf['bitFlyer'];
-        $exchangeClass1 = 'Cyptalt\\Exchange\\' . $this->conf['bitFlyer']["exchangeClass"];
+        $exchangeClass1 = 'Cyger\\Exchange\\' . $this->conf['bitFlyer']["exchangeClass"];
         $expected = [
             'BitFlyer' => new $exchangeClass1($exchangeConf1, $guzzleClient),
         ];
@@ -53,7 +53,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $guzzleClient = new \GuzzleHttp\Client(['http_errors' => false]);
         $exchangeConf1 = $this->conf['bitFlyer'];
-        $exchangeClass1 = 'Cyptalt\\Exchange\\' . $this->conf['bitFlyer']["exchangeClass"];
+        $exchangeClass1 = 'Cyger\\Exchange\\' . $this->conf['bitFlyer']["exchangeClass"];
         $expected = [
             'bitFlyer' => new $exchangeClass1($exchangeConf1, $guzzleClient),
         ];

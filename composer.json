@@ -1,5 +1,5 @@
 {
-    "name": "kuromoka/cyptalt",
+    "name": "kuromoka/Cyger",
     "type": "library",  
     "description": "A PHP library to get cryptocurrency price from various exchange APIs.",
     "license": "MIT",
@@ -26,7 +26,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Cyptalt\\": "src"
+            "Cyger\\": "src"
         }
     }
 }

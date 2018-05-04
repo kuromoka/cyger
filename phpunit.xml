@@ -9,7 +9,7 @@
          processIsolation="false"
          stopOnFailure="false">
     <testsuites>
-        <testsuite name="Cyptalt Test">
+        <testsuite name="Cyger Test">
             <directory>tests</directory>
         </testsuite>
     </testsuites>

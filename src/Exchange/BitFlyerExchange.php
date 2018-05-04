@@ -1,6 +1,6 @@
 <?php
 
-namespace Cyptalt\Exchange;
+namespace Cyger\Exchange;
 
 /**
  * BitFlyerExchange Class
