@@ -1,6 +1,6 @@
 # Cyger
 [![Build Status](https://travis-ci.org/kuromoka/cyger.svg?branch=master)](https://travis-ci.org/kuromoka/cyger)
-[![Coverage Status](https://coveralls.io/repos/github/kuromoka/cyger/badge.svg?branch=)](https://coveralls.io/github/kuromoka/cyger?branch=)
+[![Coverage Status](https://coveralls.io/repos/github/kuromoka/cyger/badge.svg)](https://coveralls.io/github/kuromoka/cyger)
 
 Cyger is a PHP library to get cryptocurrency price from various exchange APIs.
 - It is possible to resolve different specifications for each api as soon as possible.
