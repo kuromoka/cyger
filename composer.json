@@ -1,5 +1,5 @@
 {
-    "name": "kuromoka/Cyger",
+    "name": "kuromoka/cyger",
     "type": "library",  
     "description": "A PHP library to get cryptocurrency price from various exchange APIs.",
     "license": "MIT",

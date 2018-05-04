@@ -105,6 +105,7 @@ abstract class BaseExchange
      */
     public function normalizePairs($pairs, $validPairs)
     {
+        // acceptable SymbolDelimiter
         $searchSymbolDelimiters = ['_', '-', '/'];
         foreach ($pairs as $key => $pair) {
             if ($this->conf['symbolLetter'] === self::UPPER_CASE) {
@@ -113,14 +114,29 @@ abstract class BaseExchange
                 $pairs[$key] = strtolower($pair);
             }
 
-            if (strpos($pair, $this->conf['symbolDelimiter']) === false) {
+            if ($this->conf['symbolDelimiter'] !== '') {
+                // replace corrent symbolDelimiter
                 $pairs[$key] = str_replace($searchSymbolDelimiters, $this->conf['symbolDelimiter'], $pairs[$key]);
-            }
-
-            $pieces = explode($this->conf['symbolDelimiter'], $pairs[$key]);
-            if (count($pieces) === 2) {
-                if (in_array($pieces[1]. $this->conf['symbolDelimiter'] . $pieces[0], $validPairs)) {
-                    $pairs[$key] = $pieces[1]. $this->conf['symbolDelimiter'] . $pieces[0];
+                // replace corrent pair order
+                $pieces = explode($this->conf['symbolDelimiter'], $pairs[$key]);
+                if (count($pieces) === 2) {
+                    if (in_array($pieces[1]. $this->conf['symbolDelimiter'] . $pieces[0], $validPairs)) {
+                        $pairs[$key] = $pieces[1]. $this->conf['symbolDelimiter'] . $pieces[0];
+                    }
+                }
+            } else {
+                // replace corrent pair order
+                foreach ($searchSymbolDelimiters as $searchSymbolDelimiter) {
+                    $pieces = explode($searchSymbolDelimiter, $pairs[$key]);
+                    if (count($pieces) === 2) {
+                        if (in_array($pieces[1]. $this->conf['symbolDelimiter'] . $pieces[0], $validPairs)) {
+                            $pairs[$key] = $pieces[1]. $this->conf['symbolDelimiter'] . $pieces[0];
+                        } else {
+                            $pairs[$key] = $pieces[0]. $this->conf['symbolDelimiter'] . $pieces[1];
+                        }
+                        
+                        break;
+                    }
                 }
             }
 

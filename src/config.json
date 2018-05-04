@@ -1,4 +1,17 @@
 {
+  "Binance": {
+    "exchangeClass": "BinanceExchange",
+    "baseUrl": "https://api.binance.com",
+    "marketPath": "/api/v1/ticker/24hr",
+    "tickerPath": "/api/v1/ticker/24hr?symbol=",
+    "volumePath": "/api/v1/ticker/24hr?symbol=",
+    "lastKey": "lastPrice",
+    "bidKey": "bidPrice",
+    "askKey": "askPrice",
+    "volumeKey": "volume",
+    "symbolLetter": "uppercase",
+    "symbolDelimiter": ""
+  },
   "bitFlyer": {
     "exchangeClass": "BitFlyerExchange",
     "baseUrl": "https://api.bitflyer.jp/v1",

@@ -23,7 +23,7 @@
     "askKey": "ask",
     "volumeKey": "volume",
     "symbolLetter": "uppercase",
-    "symbolDelimiter": "-"
+    "symbolDelimiter": ""
   },
   "BazExchange": {
     "exchangeClass": "BazExchange",

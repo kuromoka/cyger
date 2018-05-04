@@ -61,7 +61,10 @@ class BaseExchangeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(true, true);
     }
     
-    public function testNormalizePairsWithPairsToRequireNormalization()
+    /**
+     * symbolDelimiter is not empty string.
+     */
+    public function testNormalizePairsWithPairsToRequireNormalization1()
     {
         $expected = [
             'btc_jpy' => 'JPY_BTC',
@@ -89,6 +92,31 @@ class BaseExchangeTest extends \PHPUnit_Framework_TestCase
             'BTC_BCH',
             'BTC_XRP',
             'BTC_BTG',
+        ];
+        $actual = $exchangeMock->normalizePairs($pairs, $validPairs);
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * symbolDelimiter is empty string.
+     */
+    public function testNormalizePairsWithPairsToRequireNormalization2()
+    {
+        $expected = [
+            'btc_jpy' => 'BTCJPY',
+        ];
+
+        $client = new Client(['http_errors' => false]);
+        $exchangeMock = $this->getMockForAbstractClass(
+            BaseExchange::class,
+            array($this->testConf['BarExchange'], $client)
+        );
+        $pairs = [
+            'btc_jpy' => 'btc_jpy',
+        ];
+        $validPairs = [
+            'BTCJPY',
         ];
         $actual = $exchangeMock->normalizePairs($pairs, $validPairs);
 
